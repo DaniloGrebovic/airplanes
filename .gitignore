@@ -10,7 +10,7 @@
 /build
 
 # common
-.idea
+.idea/
 
 # misc
 .DS_Store
