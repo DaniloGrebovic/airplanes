@@ -21,7 +21,7 @@ const Details = ({airData, airplanesLoading, match}) => {
   const {params} = match;
   const plane = acList && acList.filter(plane => plane.Icao === params.id);
   const from = plane && plane[0].From ? plane[0].From : '/';
-  
+
   return (
     <div className="container">
       {isLoading(airplanesLoading)}
