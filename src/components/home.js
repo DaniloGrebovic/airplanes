@@ -2,14 +2,13 @@ import React, { Component } from 'react';
 import lifecycle from 'recompose/lifecycle';
 import compose from 'recompose/compose';
 import { connect } from 'react-redux';
-import geolocation from 'geolocation'
-import {Loader} from './loader'
-import { getAirplanesData } from '../redux/home'
+import { Loader } from './loader'
+import Wrapper from './wrapper'
 
 function isLoading(loading) {
   if (loading) {
     return (
-      <Loader />
+      <Loader/>
     );
   }
 }
@@ -18,9 +17,9 @@ const Home = ({airData, airplanesLoading, history}) => {
   const {acList} = airData;
   acList && acList.sort((s1, s2) => s2.Alt - s1.Alt);
   return (
-    <div className="container">
-      {isLoading(airplanesLoading)}
-      {!airplanesLoading && <div>
+    <Wrapper>
+      {!acList && isLoading(airplanesLoading)}
+      <div className={'container'}>
         <div className="table-title">
           <h2>List of airplanes</h2>
         </div>
@@ -33,9 +32,10 @@ const Home = ({airData, airplanesLoading, history}) => {
           </tr>
           </thead>
           <tbody className='table-hover'>
-          {acList.map((airplane, index) => {
+          {acList && acList.map((airplane, index) => {
             return (
-              <tr key={index} style={{textAlign: 'center',cursor: 'pointer'}} onClick={() => history.push('/details/' + airplane.Icao)}>
+              <tr key={index} style={{textAlign: 'center', cursor: 'pointer'}}
+                  onClick={() => history.push('/details/' + airplane.Icao)}>
                 <td>{airplane.Mdl}</td>
                 <td>{airplane.Alt}</td>
                 <td>{airplane.Reg}</td>
@@ -44,8 +44,8 @@ const Home = ({airData, airplanesLoading, history}) => {
           })}
           </tbody>
         </table>
-      </div>}
-    </div>
+      </div>
+    </Wrapper>
   );
 };
 
@@ -54,20 +54,6 @@ export default compose(
   connect(({home}) => ({
     airData: home.airplanesData,
     airplanesLoading: home.airplanesLoading
-  }), {
-    getAirplanesData
-  }),
-  lifecycle({
-    componentDidMount() {
-      const { getAirplanesData: getData } = this.props;
-      geolocation.getCurrentPosition(function (err, position) {
-        if (err) return <Loader />;
-        const latitude = position.coords.latitude;
-        const longitude = position.coords.longitude;
-        if (position.coords) {
-          getData(latitude, longitude);
-        }
-      });
-    }
-  }),
+  }), {}),
+  lifecycle({}),
 )(Home);

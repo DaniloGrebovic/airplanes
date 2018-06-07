@@ -2,9 +2,8 @@ import React, { Component } from 'react';
 import lifecycle from 'recompose/lifecycle';
 import compose from 'recompose/compose';
 import { connect } from 'react-redux';
-import  geolocation  from 'geolocation'
 import {Loader} from './loader'
-import { getAirplanesData } from '../redux/home'
+import Wrapper from './wrapper'
 
 
 function isLoading(loading) {
@@ -21,15 +20,16 @@ const Details = ({airData, airplanesLoading, match}) => {
   const {params} = match;
   const plane = acList && acList.filter(plane => plane.Icao === params.id);
   const from = plane && plane[0].From ? plane[0].From : '/';
+  const to = plane && plane[0].To ? plane[0].To : '/';
 
   return (
-    <div className="container">
-      {isLoading(airplanesLoading)}
-      {!airplanesLoading && <div>
+    <Wrapper>
+      {!acList && isLoading(airplanesLoading)}
+      <div className={'container'}>
         <div className="table-title">
           <h2>Airplane details</h2>
         </div>
-        <table className="table-fill">
+        {plane && <table className="table-fill">
           <thead>
           <tr>
             <th>Airplane Manufacturer and model</th>
@@ -40,13 +40,13 @@ const Details = ({airData, airplanesLoading, match}) => {
           <tbody>
           <tr>
             <th>{plane[0].Mdl}</th>
-            <th>{from}</th>
-            <th><img src="//logo.clearbit.com/spotify.com"/></th>
+            <th>{from} <br/> / <br/> {to} </th>
+            <th><img src={`//logo.clearbit.com/` + plane[0].Man + '.com'}/></th>
           </tr>
           </tbody>
-        </table>
-      </div>}
-    </div>
+        </table> }
+      </div>
+    </Wrapper>
   );
 }
 
@@ -55,20 +55,8 @@ export default compose(
     airData: home.airplanesData,
     airplanesLoading: home.airplanesLoading
   }), {
-    getAirplanesData
+
   }),
-  lifecycle({
-    componentDidMount() {
-      const {getAirplanesData: getData} = this.props;
-      geolocation.getCurrentPosition(function (err, position) {
-        if (err) console.log(err.message);
-        const latitude = position.coords.latitude;
-        const longitude = position.coords.longitude;
-        if (position.coords) {
-          getData(latitude, longitude);
-        }
-      });
-    }
-  }),
+  lifecycle({}),
 )(Details);
 

@@ -1,4 +1,5 @@
 import { combineReducers } from 'redux';
+
 export const FETCH_AIRPLANES = 'airplane/FETCH_AIRPLANES';
 export const FETCH_AIRPLANES_SUCCESS = 'airplane/FETCH_AIRPLANES_SUCCESS';
 export const FETCH_AIRPLANES_FAILURE = 'airplane/FETCH_AIRPLANES_FAILURE';
@@ -7,7 +8,6 @@ export default combineReducers({
   airplanesData,
   airplanesLoading,
 });
-
 
 
 export function airplanesData(state = {}, action) {
@@ -38,9 +38,9 @@ export function airplanesLoading(state = true, action) {
   }
 }
 
-export const getAirplanesData = (latitude,longitude) => ({
+export const getAirplanesData = (latitude, longitude) => ({
   types: [FETCH_AIRPLANES, FETCH_AIRPLANES_SUCCESS, FETCH_AIRPLANES_FAILURE],
-  promise: () => fetch(`https://adsbexchange-proxy.herokuapp.com/adsbexchange/?lat=${latitude}&lng=${longitude}&fDstL=0&fDstU=50`, {
+  promise: () => fetch(`https://adsbexchange-proxy.herokuapp.com/adsbexchange/?lat=${latitude}&lng=${longitude}&fDstL=0&fDstU=100`, {
     headers: {
       'Accept': 'application/json',
       'Accept-Charset': 'utf-8',

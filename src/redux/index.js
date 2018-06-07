@@ -7,8 +7,6 @@ import home from './home';
 const sagaMiddleware = createSagaMiddleware();
 const middleware = [promiseMiddleware, sagaMiddleware];
 
-middleware.push(createLogger());
-
 const createStoreWithMiddleware = compose(
   applyMiddleware(
     ...middleware,
