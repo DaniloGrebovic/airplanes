@@ -9,8 +9,9 @@
 # production
 /build
 
-# common
-.idea/
+
+# Other
+.idea
 
 # misc
 .DS_Store

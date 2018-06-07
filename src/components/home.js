@@ -17,7 +17,6 @@ function isLoading(loading) {
 const Home = ({airData, airplanesLoading, history}) => {
   const {acList} = airData;
 
-  console.log(airData, 'airDataairDataairDataairDataairData');
   return (
     <div className="container">
       {isLoading(airplanesLoading)}
@@ -61,10 +60,8 @@ export default compose(
   lifecycle({
     componentDidMount() {
       const { getAirplanesData: getData } = this.props;
-      console.log(getData, 'getDatagetDatagetData');
       geolocation.getCurrentPosition(function (err, position) {
         if (err) return <Loader />;
-        console.log(position, 'positionpositionpositionposition');
         const latitude = position.coords.latitude;
         const longitude = position.coords.longitude;
         if (position.coords) {

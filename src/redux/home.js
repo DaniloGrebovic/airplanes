@@ -1,5 +1,4 @@
 import { combineReducers } from 'redux';
-import { airplanes } from '../data/data.js';
 export const FETCH_AIRPLANES = 'airplane/FETCH_AIRPLANES';
 export const FETCH_AIRPLANES_SUCCESS = 'airplane/FETCH_AIRPLANES_SUCCESS';
 export const FETCH_AIRPLANES_FAILURE = 'airplane/FETCH_AIRPLANES_FAILURE';
