@@ -27,10 +27,6 @@
     to { transform: rotate(360deg); }
 }
 
-.active {
-    background-color: #4CAF50;
-}
-
 html,
 body {
     height: 100%;
@@ -63,7 +59,7 @@ td {
     color: #fff;
 }
 th {
-    text-align: left;
+    text-align: center;
 }
 thead th {
     background-color: #55608f;
@@ -149,5 +145,9 @@ tbody td:hover:before {
 @media only screen and (max-width: 800px) {
     .table-fill {
         width: 90%;
+    }
+    img {
+        display: flex;
+        height: 70px;
     }
 }

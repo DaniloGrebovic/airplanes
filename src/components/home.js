@@ -16,7 +16,7 @@ function isLoading(loading) {
 
 const Home = ({airData, airplanesLoading, history}) => {
   const {acList} = airData;
-
+  acList && acList.sort((s1, s2) => s2.Alt - s1.Alt);
   return (
     <div className="container">
       {isLoading(airplanesLoading)}
